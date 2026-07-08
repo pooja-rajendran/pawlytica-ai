@@ -1,0 +1,694 @@
+<div class="navbar">
+
+  <div class="logo">
+    🐾 Pawlytica AI
+  </div>
+
+  <div class="stats-grid">
+
+  <div class="stat-card">
+    <h3>🐾</h3>
+    <h2>{{stats.totalPets}}</h2>
+    <p>Total Pets</p>
+  </div>
+
+  <div class="stat-card">
+    <h3>🐶</h3>
+    <h2>{{stats.dogs}}</h2>
+    <p>Dogs</p>
+  </div>
+
+  <div class="stat-card">
+    <h3>🐱</h3>
+    <h2>{{stats.cats}}</h2>
+    <p>Cats</p>
+  </div>
+
+  <div class="stat-card">
+    <h3>💉</h3>
+    <h2>{{stats.vaccinated}}</h2>
+    <p>Vaccinated</p>
+  </div>
+
+</div>
+
+  <button
+    class="logout-btn"
+    (click)="logout()"
+  >
+    Logout
+  </button>
+
+</div>
+
+<div class="container">
+
+  <div class="hero-section">
+
+  <p class="hero-subtitle">
+ Manage your pets, track health records and get AI-powered guidance.
+</p>
+
+</div>
+
+<div class="glass-card">
+
+  <h2>Add Pet 🐾</h2>
+
+<div class="pet-form">
+
+  <input
+    [(ngModel)]="newPet.petName"
+    placeholder="Pet Name"
+  />
+
+  <input
+    [(ngModel)]="newPet.species"
+    placeholder="Species"
+  />
+
+  <input
+    [(ngModel)]="newPet.breed"
+    placeholder="Breed"
+  />
+
+  <input
+    type="number"
+    [(ngModel)]="newPet.age"
+    placeholder="Age"
+  />
+
+  <input
+    [(ngModel)]="vaccinesInput"
+    placeholder="Vaccines (comma separated)"
+  />
+
+  <input
+  type="file"
+  accept="image/*"
+  (change)="onFileSelected($event)"
+/>
+
+<input
+ type="date"
+ [(ngModel)]="newPet.nextVaccineDate"
+/>
+
+  <button
+    class="add-btn"
+    (click)="addPet()"
+  >
+    Add Pet
+  </button>
+
+</div>
+
+</div>
+
+<input
+ class="search-box"
+ placeholder="🔍 Search pets..."
+ [(ngModel)]="searchText"
+/>
+
+<div
+ class="reminder-card"
+ *ngFor="let pet of getDueVaccines()"
+>
+
+ ⚠ Vaccine due soon for
+
+ <strong>
+  {{ pet.petName }}
+ </strong>
+
+</div>
+
+  <h2>My Pets 🐾</h2>
+
+  <p>Total Pets : {{pets.length}}</p>
+
+  <div class="pet-grid">
+  <div
+    *ngFor="let pet of filteredPets"
+    class="pet-card"
+  >
+
+  <img
+  *ngIf="pet.image"
+  [src]="'http://localhost:3000' + pet.image"
+  width="150"
+  style="
+    border-radius:12px;
+    margin-bottom:10px;
+    display:block;
+  "
+/>
+
+    <h3>🐾 {{ pet.petName }}</h3>
+
+    <p>
+      <strong>Species:</strong>
+      {{ pet.species }}
+    </p>
+
+    <p>
+      <strong>Breed:</strong>
+      {{ pet.breed }}
+    </p>
+
+    <p>
+      <strong>Age:</strong>
+      {{ pet.age }}
+    </p>
+
+    <p>
+      <strong>Vaccines:</strong>
+      {{ pet.vaccines.join(', ') }}
+    </p>
+
+    <p>
+ <strong>Next Vaccine:</strong>
+ {{ pet.nextVaccineDate | date:'dd/MM/yyyy' }}
+</p>
+
+<hr>
+
+<h3>💉 Vaccination Tracker</h3>
+
+<div *ngFor="let vaccine of allVaccines">
+
+  <span>{{ vaccine }}</span>
+
+  <span
+    style="float:right;font-weight:bold;"
+  >
+
+   {{ isVaccinated(pet, vaccine) ? '✅ Completed' : '❌ Pending' }}
+
+  </span>
+
+</div>
+
+<br>
+
+<h4>Progress</h4>
+
+<progress
+  [value]="getVaccinationProgress(pet)"
+  max="100"
+  style="width:100%;height:18px;"
+></progress>
+
+<p>
+
+  {{ getVaccinationProgress(pet) }}% Completed
+
+</p>
+
+    <div class="pet-actions">
+
+    <button
+ class="delete-btn"
+ (click)="deletePet(pet._id)"
+>
+ 🗑 Delete
+</button>
+
+<button
+ class="view-btn"
+ (click)="viewPet(pet)"
+>
+ 👁 View Details
+</button>
+
+<button
+ class="edit-btn"
+ (click)="startEdit(pet)"
+>
+ ✏️ Edit
+</button>
+
+<button
+ class="symptom-btn"
+ (click)="openSymptomChecker(pet)"
+>
+ 🩺 Symptom Checker
+</button>
+</div>
+
+<div *ngIf="editingPetId === pet._id">
+
+  <input
+    [(ngModel)]="editPet.petName"
+    placeholder="Pet Name"
+  >
+
+  <input
+    [(ngModel)]="editPet.species"
+    placeholder="Species"
+  >
+
+  <input
+    [(ngModel)]="editPet.breed"
+    placeholder="Breed"
+  >
+
+  <input
+    type="number"
+    [(ngModel)]="editPet.age"
+    placeholder="Age"
+  >
+
+  <input
+    [(ngModel)]="editVaccinesInput"
+    placeholder="Vaccines"
+  >
+
+  <input
+  type="date"
+  [(ngModel)]="editPet.nextVaccineDate"
+/>
+
+
+  <input
+  type="file"
+  accept="image/*"
+  (change)="onEditFileSelected($event)"
+>
+
+  <button
+    (click)="saveEdit()"
+  >
+    Save
+  </button>
+
+  <button
+    (click)="cancelEdit()"
+  >
+    Cancel
+  </button>
+
+</div>
+
+  </div>
+
+  </div>
+
+  <h2>Pawlytica AI 🐾</h2>
+
+  <div class="chat-box">
+
+  <div
+    *ngIf="messages.length === 0"
+    class="welcome-message"
+  >
+    👋 Hi! I'm Pawlytica AI.
+    Ask me anything about your pets.
+  </div>
+
+  <div
+    *ngFor="let msg of messages"
+    class="message"
+    [ngClass]="msg.role"
+  >
+
+    <div class="sender">
+      {{ msg.role === 'user'
+        ? 'You'
+        : 'Pawlytica AI' }}
+    </div>
+
+    <div class="text">
+      {{ msg.text }}
+    </div>
+
+  </div>
+
+  <div
+    *ngIf="isTyping"
+    class="typing-indicator"
+  >
+    Pawlytica AI is typing...
+  </div>
+
+</div>
+
+      
+<div class="chat-card">
+
+  <h2>🤖 Pawlytica AI Assistant</h2>
+  <div class="input-area">
+
+    <input
+      class="chat-input"
+      [(ngModel)]="message"
+      placeholder="Type message..."
+      (keyup.enter)="send()"
+    />
+
+    <button
+      class="send-btn"
+      (click)="send()"
+    >
+      Send
+    </button>
+
+  </div>
+
+</div>
+
+<div
+  class="modal-overlay"
+  *ngIf="showPetDetails"
+>
+
+  <div class="modal">
+
+    <button
+      class="close-btn"
+      (click)="closePetDetails()"
+    >
+      ✖
+    </button>
+
+    <img
+      *ngIf="selectedPet?.image"
+      [src]="'http://localhost:3000' + selectedPet.image"
+      class="modal-image"
+    >
+
+    <h2>{{ selectedPet?.petName }}</h2>
+
+    <div class="modal-info">
+
+      <p>
+        <strong>Species:</strong>
+        {{ selectedPet?.species }}
+      </p>
+
+      <p>
+        <strong>Breed:</strong>
+        {{ selectedPet?.breed }}
+      </p>
+
+      <p>
+        <strong>Age:</strong>
+        {{ selectedPet?.age }} years
+      </p>
+
+      <p>
+        <strong>Vaccines:</strong>
+        {{ selectedPet?.vaccines?.join(', ') }}
+      </p>
+
+      <p>
+        <strong>Next Vaccine:</strong>
+        {{ selectedPet?.nextVaccineDate | date:'dd/MM/yyyy' }}
+      </p>
+
+      <hr>
+
+      <div
+        class="risk-card"
+        *ngIf="aiResult"
+      >
+
+        <h3>🏥 Health Status</h3>
+
+        <div
+          class="risk-badge"
+          [ngClass]="{
+            'low': aiResult.risk === 'Low',
+            'medium': aiResult.risk === 'Medium',
+            'high': aiResult.risk === 'High'
+          }"
+        >
+
+          {{ aiResult.risk }}
+
+        </div>
+
+      </div>
+
+      <hr>
+
+      <div *ngIf="aiResult">
+
+        <h3>🤖 AI Health Summary</h3>
+
+        <p>
+          {{ aiResult.summary }}
+        </p>
+
+        <h3>🥣 Diet Recommendation</h3>
+
+        <p>
+          {{ aiResult.diet }}
+        </p>
+
+        <h3>🏃 Exercise Recommendation</h3>
+
+        <p>
+          {{ aiResult.exercise }}
+        </p>
+
+        <h3>💉 Vaccination Advice</h3>
+
+        <p>
+          {{ aiResult.vaccination }}
+        </p>
+
+      </div>
+<div *ngIf="!aiResult" style="text-align:center;padding:20px;">
+
+  <p>🤖 Generating AI health report...</p>
+
+</div>
+    
+
+<hr>
+
+<button
+  class="add-btn"
+  (click)="generateDietPlan()"
+>
+  🥗 Generate AI Diet Plan
+</button>
+
+<div *ngIf="isGeneratingDiet">
+
+  <p>
+    🤖 Pawlytica AI is preparing a diet plan...
+  </p>
+
+</div>
+
+<div *ngIf="dietPlan">
+
+  <hr>
+
+  <h3>🥗 AI Diet Plan</h3>
+
+  <p style="white-space: pre-wrap;">
+    {{ dietPlan }}
+  </p>
+
+</div>
+
+<hr>
+
+<button
+  class="add-btn"
+  (click)="downloadReport()"
+>
+📄 Download AI Health Report
+</button>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<div
+ class="modal-overlay"
+ *ngIf="showSymptomChecker"
+>
+
+<div class="modal">
+
+<button
+ class="close-btn"
+ (click)="closeSymptomChecker()"
+>
+✖
+</button>
+
+<h2>
+🩺 AI Symptom Checker
+</h2>
+
+<h3>
+
+{{selectedSymptomPet?.petName}}
+
+</h3>
+
+<label>
+
+<input
+type="checkbox"
+value="Vomiting"
+(change)="toggleSymptom($event)"
+>
+
+Vomiting
+
+</label>
+
+<br>
+
+<label>
+
+<input
+type="checkbox"
+value="Loss of Appetite"
+(change)="toggleSymptom($event)"
+>
+
+Loss of Appetite
+
+</label>
+
+<br>
+
+<label>
+
+<input
+type="checkbox"
+value="Diarrhea"
+(change)="toggleSymptom($event)"
+>
+
+Diarrhea
+
+</label>
+
+<br>
+
+<label>
+
+<input
+type="checkbox"
+value="Sneezing"
+(change)="toggleSymptom($event)"
+>
+
+Sneezing
+
+</label>
+
+<br>
+
+<label>
+
+<input
+type="checkbox"
+value="Fever"
+(change)="toggleSymptom($event)"
+>
+
+Fever
+
+</label>
+
+<br><br>
+
+<button
+ class="add-btn"
+ (click)="analyzeSymptoms()"
+>
+Analyze Symptoms
+</button>
+ <div *ngIf="!aiResult" style="text-align:center;padding:20px;">
+
+  <p>🤖 Generating AI health report...</p>
+
+</div>
+<div *ngIf="isCheckingSymptoms">
+
+  <p>🤖 Pawlytica AI is analyzing...</p>
+
+</div>
+
+<div *ngIf="symptomResult">
+
+  <hr>
+
+  <h3>Risk Level</h3>
+
+<div
+ class="risk-badge"
+ [ngClass]="{
+
+ 'risk-low':
+ symptomResult.risk?.toLowerCase() === 'low',
+
+ 'risk-medium':
+ symptomResult.risk?.toLowerCase() === 'medium',
+
+ 'risk-high':
+ symptomResult.risk?.toLowerCase() === 'high'
+
+ }"
+>
+
+{{symptomResult.risk}}
+
+</div>
+
+  <div class="ai-card">
+
+<h3>🦠 Possible Causes</h3>
+
+<p>{{symptomResult.possibleCauses}}</p>
+
+</div>
+
+<div class="ai-card">
+
+<h3>🏠 Home Care</h3>
+
+<p>{{symptomResult.homeCare}}</p>
+
+</div>
+
+<div class="ai-card">
+
+<h3>👨‍⚕️ Vet Advice</h3>
+
+<p>{{symptomResult.vetAdvice}}</p>
+
+</div>
+
+<div
+ class="warning-card"
+ *ngIf="symptomResult.risk?.toLowerCase() === 'high'"
+>
+
+🚨
+
+This pet may require immediate veterinary attention.
+
+Please contact your veterinarian as soon as possible.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>

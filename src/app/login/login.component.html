@@ -1,0 +1,111 @@
+<div class="login-container">
+
+  <div class="left-panel">
+
+
+<div class="branding">
+
+  <h1>Pawlytica AI🐾 </h1>
+
+  <p>
+    Smarter Pet Care. Health Tracking. AI Guidance.
+  </p>
+
+</div>
+
+
+  </div>
+
+  <div class="right-panel">
+
+
+<div class="login-card">
+
+  <h2>
+
+    {{
+      isRegisterMode
+      ? 'Create Account'
+      : 'Welcome Back'
+    }}
+
+  </h2>
+
+  <p class="subtitle">
+
+    {{
+      isRegisterMode
+      ? 'Join Pawlytica and manage your pets'
+      : 'Login to continue'
+    }}
+
+  </p>
+
+  <div *ngIf="isRegisterMode">
+
+    <input
+      placeholder="Full Name"
+      [(ngModel)]="name"
+    >
+
+  </div>
+
+  <input
+    type="email"
+    placeholder="Email Address"
+    [(ngModel)]="email"
+  >
+
+  <input
+    type="password"
+    placeholder="Password"
+    [(ngModel)]="password"
+  >
+
+  <div *ngIf="isRegisterMode">
+
+    <input
+      type="password"
+      placeholder="Confirm Password"
+      [(ngModel)]="confirmPassword"
+    >
+
+  </div>
+
+  <button
+    *ngIf="!isRegisterMode"
+    (click)="login()"
+  >
+    Login
+  </button>
+
+  <button
+    *ngIf="isRegisterMode"
+    (click)="register()"
+  >
+    Create Account
+  </button>
+
+  <div class="switch-link">
+
+    <a
+      href="#"
+      (click)="isRegisterMode=!isRegisterMode"
+    >
+
+      {{
+        isRegisterMode
+        ? 'Already have an account? Login'
+        : 'Create New Account'
+      }}
+
+    </a>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>
