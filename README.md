@@ -1,59 +1,202 @@
-# PawlyticaAi
+# 🐾 Pawlytica AI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+An AI-powered Pet Health Management System built using **Angular, Node.js, Express.js, MongoDB Atlas, and Google Gemini AI**.
 
-## Development server
+Pawlytica AI helps pet owners manage their pets' health records while providing AI-powered health insights, diet recommendations, vaccination tracking, symptom analysis, and downloadable health reports.
 
-To start a local development server, run:
+---
+
+# 🚀 Features
+
+## 🐶 Pet Management
+- Add new pets
+- Edit pet details
+- Delete pets
+- Upload pet images
+- Search pets instantly
+- View detailed pet profile
+
+## 💉 Vaccination Management
+- Store vaccination records
+- Track next vaccination date
+- Vaccination progress tracker
+- Vaccine reminder alerts
+- Completed vs Pending vaccine status
+
+## 🤖 AI Health Summary
+Generate an AI-powered health report for each pet including:
+- Health summary
+- Health risk level
+- Diet recommendations
+- Exercise recommendations
+- Vaccination advice
+
+Powered by **Google Gemini AI**.
+
+## 🩺 AI Symptom Checker
+Analyze pet symptoms using AI.
+
+Features include:
+- Multiple symptom selection
+- Possible causes
+- Home care suggestions
+- Veterinary advice
+- Risk assessment (Low / Medium / High)
+
+## 🥗 AI Diet Planner
+Generate a personalized AI diet plan including:
+- Daily meal plan
+- Foods to avoid
+- Healthy treats
+- Water recommendations
+- Nutrition tips
+
+## 💬 Pawlytica AI Assistant
+Interactive AI chatbot for answering pet-related questions.
+
+Examples:
+- Nutrition advice
+- Vaccination guidance
+- Pet care tips
+- General health questions
+
+## 📄 AI Health Report
+Download an AI-generated PDF report containing:
+- Pet details
+- Health summary
+- Diet recommendations
+- Exercise recommendations
+- Vaccination advice
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+- Angular
+- TypeScript
+- HTML5
+- CSS3
+
+## Backend
+- Node.js
+- Express.js
+
+## Database
+- MongoDB Atlas
+
+## AI
+- Google Gemini API
+
+## Authentication
+- JWT Authentication
+
+## Other Libraries
+- Multer (Image Upload)
+- PDFKit (PDF Generation)
+- REST APIs
+
+---
+
+# 📁 Project Structure
+
+```
+pawlytica-ai
+│
+├── src
+│   ├── app
+│   ├── components
+│   ├── services
+│   ├── home
+│   └── login
+│
+├── assets
+├── angular.json
+└── package.json
+```
+
+---
+
+# ⚙ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/pooja-rajendran/pawlytica-ai.git
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Start Angular
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The application will run at:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+> Note: This repository contains the Angular frontend. The backend server must also be running for full functionality.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+# ✨ Current Features
 
-To build the project run:
+✅ Authentication
 
-```bash
-ng build
-```
+✅ Pet Management
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+✅ Image Upload
 
-## Running unit tests
+✅ Vaccination Tracking
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+✅ AI Health Summary
 
-```bash
-ng test
-```
+✅ AI Symptom Checker
 
-## Running end-to-end tests
+✅ AI Diet Planner
 
-For end-to-end (e2e) testing, run:
+✅ AI Chat Assistant
 
-```bash
-ng e2e
-```
+✅ PDF Health Report
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+# 🔮 Future Enhancements
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Pet weight tracker
+- Growth charts
+- Medical history timeline
+- Appointment scheduler
+- Email reminders
+- Push notifications
+- AI disease prediction from pet images
+- Multi-user support
+- Mobile application
+
+---
+
+# 👩‍💻 Developer
+
+**Pooja Rajendran**
+
+Full Stack & AI Developer
+
+GitHub:
+https://github.com/pooja-rajendran
+
+---
+
+## ⭐ Project Status
+
+🚧 **Ongoing Personal Project**
+
+
+---
